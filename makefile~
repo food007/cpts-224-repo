@@ -1,7 +1,10 @@
 .PHONY: all
 .PHONY: clean
 .SILENT: clean
-all: prog2 ma
+all: ma
+test: prog2 ma
+	make prog2
+	make ma
 prog2: prog2.o libcma.so
 	gcc -o prog2 prog2.o
 prog2.o: prog2.c
