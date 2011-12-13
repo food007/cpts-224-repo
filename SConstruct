@@ -3,13 +3,19 @@
 #This build is not currently using the 'packaging' tool,#
 #but its there just in case.				#
 #########################################################
-env = Environment(tools=['default', 'packaging'])
+env = Environment(	tools=['default', 'packaging'], 
+			CC = 'gcc', 
+			CCFLAGS = '-O2'
+)
 
 #########################################
 #build the executable 'helloworld'	#
 #put it in './outputs'			#
 #########################################
-hello = env.Program(target = './outputs/helloworld', source = ["./c-files/helloworld.c"])
+hello = env.Program(	target = './outputs/helloworld', 
+			source = ["./c-files/helloworld.c"], 
+			CPPPATH = ['./c-files', './h-files']
+			)
 #########################################################
 #Currently commented out, becuase its not working	#
 #with the shared library				#
@@ -32,6 +38,7 @@ hello = env.Program(target = './outputs/helloworld', source = ["./c-files/hellow
 #########################################
 ma = env.Program(	target = ['./outputs/ma'], 
 			source = ['./c-files/ma.c', './LIBS/libcma.a'], 
+			CPPPATH = ['./c-files', './h-files']
 			)
 
 #########################################################################

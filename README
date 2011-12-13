@@ -1,1 +1,11 @@
 This will be the branch for the 'sconsify it' part of the project
+
+What does it do??
+Builds two executables (ma and helloworld), and outputs them to ./outputs/, it also makes two libraries. they are both essentially the same thing, but one is a shared library and one is static. Currently ma implements the static library, because on my system it had issues finding libcma.so after the linking was done.
+
+
+To Build Project:
+run "scons" from the command line from the directory containing the 'SConstruct' file.
+
+To clean project:
+run "scons -c" from the command line from the directory containing the 'SConstruct' file.
