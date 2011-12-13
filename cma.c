@@ -56,7 +56,7 @@ static void class_printList(MNode list)
 	EXIT;
 	return;
     }
-    printf("Node %p, %ld\n", list, list->size);
+    printf("Node %p, %ud\n",list,list->size);
     class_printList(list->next);
     EXIT;
 }
@@ -77,7 +77,7 @@ int class_memory(void *mem, size_t size)
     item = (MNode) mem;
     item->size = size - sizeof(struct MemNode);
     item->next = NULL;
-
+DEBUG("Creating Initial NoUseList with %x: %ud",item,size);
     class_nouse = class_AddToList(class_nouse, item);
     EXIT;
 }
@@ -100,12 +100,13 @@ static MNode class_findNoUse(size_t target)
     size_t c;
     MNode best = NULL;
     MNode p;
-
+DEBUG("Searching for a block of size: %ud",target);
     for (p = class_nouse; p != NULL; p = p->next) {
 	c = p->size - target;
 	if (c >= 0 && c < closeness) {
 	    best = p;
 	    closeness = c;
+DEBUG("Best is now: %x size=%ud",best,p->size);
 	}
     }
 //    return best;
@@ -120,11 +121,14 @@ MNode class_splitNode(MNode org, size_t size)
 
     //we need room for a new header
     if ((orgsz - size - sizeof(struct MemNode)) > 0) {
+DEBUG("Node split: %ud => %ud,%ud",org->size,size,orgsz-sizeof(struct MemNode)-size);
 	org->size = size;
 	extra = (MNode) ((void *) org + size + sizeof(struct MemNode));
 	extra->next = 0;
 	extra->size = orgsz - sizeof(struct MemNode) - size;
     }
+else
+DEBUG("Node does not have enough size to split:%ud %ud",org->size,size);
 //    return extra;
     RETURN(extra);
 }
@@ -222,7 +226,7 @@ void class_stats()
     class_printList(class_nouse);
 
     printf("Counters:\n");
-#define DUMPC(x) printf(" %10s : %d\n",#x,class_counters.x)
++#define DUMPC(x) printf(" %10s : %ld\n",#x,class_counters.x)
     DUMPC(malloc);
     DUMPC(calloc);
     DUMPC(realloc);
