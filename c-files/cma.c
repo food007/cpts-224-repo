@@ -226,7 +226,7 @@ void class_stats()
     class_printList(class_nouse);
 
     printf("Counters:\n");
-+#define DUMPC(x) printf(" %10s : %ld\n",#x,class_counters.x)
+#define DUMPC(x) printf(" %10s : %ld\n",#x,class_counters.x)
     DUMPC(malloc);
     DUMPC(calloc);
     DUMPC(realloc);
