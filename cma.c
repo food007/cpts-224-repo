@@ -157,23 +157,20 @@ void *class_malloc(size_t size)
 //attempt to find adjacent unused nodes and collapse them.
 static void class_garbage()
 {
-//  ENTER;
-//  MNode here, there;
-//  here = class_nouse;
-//  while (here->next != NULL)
-//  {
-//      there = here->next;
-//      if (NXT(here)==there)
-//      {
-//        here->next = there->next;
-//        here->size = sizeof(struct MemNode) + there->size;
-//        class_counters.gc++;
-//        return;
-//      }
-//      else
-//      here->next = there->next;
-//  }
-// EXIT;
+    ENTER;
+    MNode here, there;
+    here = class_nouse;
+    while (here->next != NULL) {
+	there = here->next;
+	if (NXT(here) == there) {
+	    here->next = there->next;
+	    here->size = sizeof(struct MemNode) + there->size;
+	    class_counters.gc++;
+	    return;
+	} else
+	    here->next = there->next;
+    }
+    EXIT;
 }
 
 

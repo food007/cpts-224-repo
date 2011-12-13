@@ -3,8 +3,8 @@
 typedef struct MemNode *MNode;
 
 struct MemNode {
-	MNode next;
-	int size;
+    MNode next;
+    int size;
 };
 
 #define PTRTOMNODE(x) ((MNode)(x-sizeof(struct MemNode)))
