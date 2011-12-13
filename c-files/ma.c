@@ -1,4 +1,4 @@
-#include "cma.h"
+#include "../h-files/cma.h"
 
 #define MSIZE 1024*16
 unsigned char mem[MSIZE];

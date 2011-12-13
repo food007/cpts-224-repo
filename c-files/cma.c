@@ -3,8 +3,8 @@
 #include <string.h>
 #include <limits.h>
 
-#include "cma.h"
-#include "debug.h"
+#include "../h-files/cma.h"
+#include "../h-files/debug.h"
 #define NXT(e) ((void*)e+e->size+sizeof(struct MemNode))
 #define ITEMNOTFOUND ((void *)-1)
 
